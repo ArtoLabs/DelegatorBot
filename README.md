@@ -1,2 +1,2 @@
 # DelegatorBot
-A blockchain bot that follows, upvotes and resteems all posts by those who delegate STEEM
+A Steem Blockchain Bot That Grants Upvotes To Those Who've Delegated Steem Power
