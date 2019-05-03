@@ -1,0 +1,5 @@
+include INSTALLATION.md
+include LICENSE
+include README.md
+
+include delegatorbot/*.txt
