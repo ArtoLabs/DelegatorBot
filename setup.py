@@ -5,10 +5,9 @@ from setuptools import setup, find_packages
 setup(
     python_requires='>=3.0',
     name='DelegatorBot',
-    version='1.0',
-    packages=find_packages(),
+    version='1.0.4',
+    packages=['delegatorbot'],
     include_package_data=True,
-    package_data={'delegatorbot': ['post_template.txt']},
     license='MIT',
     keywords='steemit steem upvote bot',
     url='http://github.com/artolabs/delegatorbot',
@@ -16,9 +15,15 @@ setup(
     author_email='artopium@gmail.com',
     install_requires=[
         'python-dateutil',
-        'simplesteem',
-        'screenlogger',
+        'simplesteem==1.1.17',
+        'screenlogger==1.3.1',
+        'mysimpledb==1.0',
     ],
-    #py_modules=['delegatorbot'],   
+    py_modules=['delegatorbot'],
+    entry_points = {
+        'console_scripts': [
+            'runbot=delegatorbot.runbot:run',
+        ],
+    },
     zip_safe=False
 )
