@@ -1,5 +1,23 @@
 #!/usr/bin/python3
 
+'''
+
+        Database managing module using MySQL statements. 
+        Fetches user and post information and sends it back to the
+        requesting program. Requires that you have the settings
+        file setup according to the installation instructions.
+
+        TODO: add better exception handling
+
+
+        ArtoLabs
+        https://github.com/ArtoLabs/DelegatorBot
+        https://steemit.com/@learnelectronics
+        https://mike.artopium.com
+        Michael Betthauser (a.k.a. Mike-A)
+
+'''
+
 import sys
 from mysimpledb.db import DB
 from datetime import datetime
@@ -14,12 +32,16 @@ class BotDB(DB):
                         dbposttable,
                         delegatortable):
         self.cfg = Config()
-        DB.__init__(self, dbuser, 
-                        dbpass, 
-                        dbname,
-                        self.cfg.logfilename,
-                        self.cfg.logpath,
-                        self.cfg.msgmode)
+        try:
+            DB.__init__(self, dbuser, 
+                            dbpass, 
+                            dbname,
+                            self.cfg.logfilename,
+                            self.cfg.logpath,
+                            self.cfg.msgmode)
+        except Exception as e:
+            print ("There was an error opening the database. "
+                    + "Please check that settings are correct: \n" + str(e)) 
         self.dbuser = dbuser
         self.dbpass = dbpass
         self.dbname = dbname
@@ -139,6 +161,9 @@ class BotDB(DB):
                     return r[1]
 
     def add_bot_post(self, firsttag, identifier):
+        ''' Adds a record of the identifier and timestamp 
+            of a daily report
+        '''
         return self.commit("INSERT INTO "
                         + self.dbposttable
                         + " (PostID, FirstTag) "
@@ -146,18 +171,28 @@ class BotDB(DB):
                         identifier, firsttag)
 
     def add_delegator(self, delegator, vests):
+        ''' Adds a delegator to the databse along with the 
+        amount they delegated
+        '''
         return self.commit("INSERT INTO " + self.delegatortable
                         + " (Name, Vests) "
                         + "VALUES (%s, %s);",
                         delegator, vests)
 
     def update_delegator(self, delegator, vests):
+        ''' Changes the amount the delegator has delegated. There
+        is no way to remove a delegator, only to set the delegation
+        amount to zero. 
+        '''
         return self.commit("UPDATE " + self.delegatortable
                         + " SET Vests = " + str(vests)
                         + " WHERE Name = %s;",
                         delegator)
 
     def get_delegators(self):
+        ''' Returns a list of all delegators that have
+        a delegation larger than zero
+        '''
         if self.get_results("SELECT ID, Name, Vests "
                         + "FROM " + self.delegatortable
                         + " WHERE Vests > 0 ORDER BY Vests DESC;"):
@@ -166,6 +201,8 @@ class BotDB(DB):
             return False
 
     def days_back(self, date):
+        ''' Calculates a date x number of days in the past
+        '''
         return (datetime.now() - date).days
 
 
