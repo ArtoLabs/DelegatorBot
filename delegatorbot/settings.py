@@ -1,5 +1,32 @@
 #!/usr/bin/python3
 
+'''
+
+        The settings file for the bot.
+
+        BE SURE TO ADJUST THE VALUES OF THIS FILE AFTER INSTALLATION 
+        OR YOU WILL RECIEVE ERRORS.
+
+        To run more than one bot, simply copy this file and rename it
+        with the name of the bot e.g. mybotname.py. Adjust all the values
+        for the new bot and make sure that the name of the bot, the delegation
+        link, database table names, and steemit posting and active keys
+        are unique to each bot. To run the bot simply type "runbot", plus
+        the command, plus the name of the bot e.g. 
+
+        runbot steemboost mybotname
+
+        Please see the github account for full instructions.
+        https://github.com/ArtoLabs/DelegatorBot
+
+        ArtoLabs
+        https://github.com/ArtoLabs/DelegatorBot
+        https://steemit.com/@learnelectronics
+        https://mike.artopium.com
+        Michael Betthauser (a.k.a. Mike-A)
+
+'''
+
 class Config:
 
     def __init__(self):
