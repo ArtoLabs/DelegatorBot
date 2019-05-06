@@ -24,36 +24,46 @@ class TestDelegatorBot(unittest.TestCase):
         self.bot.s = None
         
     def test_get_replies_to_stop(self):
+        self.print_header("get_replies_to_stop")
         self.assertIsInstance(self.bot.get_replies_to_stop(), bool)
 
-    def test_process_delegators(self): 
+    def test_process_delegators(self):
+        self.print_header("process_delegators")
         self.assertIsInstance(self.bot.process_delegators(), bool)
 
     def test_daily_report(self):
+        self.print_header("daily_report")
         self.assertIsInstance(self.bot.daily_report(), bool)
 
     def test_daily_report_upvote_list(self):
+        self.print_header("daily_report_upvote_list")
         self.assertIsNotNone(self.bot.daily_report_upvote_list())
 
     def test_daily_report_delegators(self):
+        self.print_header("daily_report_delegators")
         self.assertIsNotNone(self.bot.daily_report_delegators())
 
     def test_daily_report_footer(self):
+        self.print_header("daily_report_footer")
         self.assertIsNotNone(self.bot.daily_report_footer())
 
     def test_make_newlines(self):
+        self.print_header("make_newlines")
         byte_list = [b'This is line 1', b'Here is line 2', b'Yup, line 3 coming up', b'Duh, what do you think this is?']
         test_string ='This is line 1\nHere is line 2\nYup, line 3 coming up\nDuh, what do you think this is?\n'
         self.assertEqual(self.bot.make_newlines(), '')
         self.assertEqual(self.bot.make_newlines(byte_list), test_string)
 
     def test_daily_report(self):
+        self.print_header("daily_report")
         self.assertIsInstance(self.bot.daily_report(), bool)
         
     def test_run_bot(self):
+        self.print_header("run_bot")
         self.assertIsInstance(self.bot.run_bot(), bool)
 
     def test_run_bot_upvote(self):
+        self.print_header("run_bot_upvote")
         self.assertFalse(self.bot.run_bot_upvote(None))
         newidentifier = self.bot.run_bot_upvote("artopium")
         self.assertGreater(self.bot.voteweight, 0)
@@ -66,7 +76,8 @@ class TestDelegatorBot(unittest.TestCase):
                                     self.cfg.dbpass, 
                                     self.cfg.dbname, 
                                     self.cfg.dbtable, 
-                                    self.cfg.dbposttable)
+                                    self.cfg.dbposttable,
+                                    self.cfg.delegatortable)
             db.get_results("SELECT IDKey, PostID FROM " 
                             + self.cfg.dbtable 
                             + " WHERE 1 ORDER BY Time DESC LIMIT 1;")
@@ -76,37 +87,49 @@ class TestDelegatorBot(unittest.TestCase):
             print ("This post was already in the database. Testing skipped for this portion.")
         
     def test_run_bot_reply(self):
+        self.print_header("run_bot_reply")
         self.bot.voteweight = 50
         self.assertFalse(self.bot.run_bot_reply(None, None))
         self.assertTrue(self.bot.run_bot_reply("Some identifer", "artopium"), bool)
 
     def test_adjust_vote_weight(self):
+        self.print_header("adjust_vote_weight")
         self.assertEqual(self.bot.adjust_vote_weight(None), 0)
         self.assertEqual(self.bot.adjust_vote_weight(self.cfg.owner), 100)
         self.assertGreater(self.bot.adjust_vote_weight("davedickeyyall"), 2)
 
     def test_verify_tags(self):
+        self.print_header("verify_tags")
         self.assertFalse(self.bot.verify_tags(None))
         identifier = self.bot.steem.recent_post("artopium", 0, 1)
         print ("Using: " + identifier)
         self.assertTrue(self.bot.verify_tags(self.bot.steem.blognumber))
 
     def test_boost_post(self):
+        self.print_header("boost_post")
         self.assertFalse(self.bot.boost_post(-1, "STEEM", 0.01))
         self.assertFalse(self.bot.boost_post(0, "Somethingelse", 0.01))
         self.assertFalse(self.bot.boost_post(0, "STEEM", 0.001))
         self.assertIsInstance(self.bot.boost_post(0, "STEEM", 0.01), bool)
 
     def test_ensure_balance(self):
+        self.print_header("ensure_balance")
         self.assertFalse(self.bot.ensure_balance(None))
         self.assertIsInstance(self.bot.ensure_balance("STEEM"), bool)
         self.assertIsInstance(self.bot.ensure_balance("SBD"), bool)
 
     #def test_claim(self):
+    #    self.print_header("claim")
     #    self.assertIsInstance(self.bot.claim(), bool)
 
     def test_balance(self):
+        self.print_header("balance")
         self.assertTrue(self.bot.balance())
+
+    def print_header(self, header):
+        print('\n\n========================================================')
+        print('         ' + header)
+        print('========================================================\n\n')
         
 
 if __name__ == '__main__':
