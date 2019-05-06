@@ -1,13 +1,32 @@
 #!/usr/bin/python3
 
+'''
+
+        Main module creates a class object that interacts with Steem 1.0.0
+        and a MySQL database to operate a delegation bot. Those who delegate
+        to the bot's account the minimum set in the settings file will cause
+        the bot to start following their account. The bot can upvote, resteem
+        and reply to all of those it follows.
+
+        TODO: add better exception handling
+
+
+        ArtoLabs
+        https://github.com/ArtoLabs/DelegatorBot
+        https://steemit.com/@learnelectronics
+        https://mike.artopium.com
+        Michael Betthauser (a.k.a. Mike-A)
+
+'''
+
 import json
 import re
 import os
+import importlib
 from screenlogger.screenlogger import Msg
 from simplesteem.simplesteem import SimpleSteem
 from datetime import datetime
-from delegatorbot import botdb
-#from delegatorbot.settings import Config
+from delegatorbot.botdb import BotDB
 
 
 class DelegatorBot():    
@@ -16,17 +35,17 @@ class DelegatorBot():
     '''
 
     def __init__(self, debug=False, mode="verbose", botname="settings"):
-        bot = __import__(botname)
         ''' Uses simplesteem and screenlogger from
             https://github.com/ArtoLabs/SimpleSteem
             https://github.com/ArtoLabs/ScreenLogger
         '''
+        bot = importlib.import_module("."+botname, "delegatorbot")
         self.debug = debug
         self.cfg = bot.Config()
         self.msg = Msg(self.cfg.logfilename,
                         self.cfg.logpath,
                         mode)
-        self.db = botdb.BotDB(self.cfg.dbusername, 
+        self.db = BotDB(self.cfg.dbusername, 
                                 self.cfg.dbpass, 
                                 self.cfg.dbname, 
                                 self.cfg.dbtable, 
@@ -534,10 +553,13 @@ class DelegatorBot():
         ''' boosts the payout of the daily report using bid bots
         '''
         if daysback < 0:
+            self.msg.error_message("Invalid date to boost post")
             return False
         if denom != "STEEM" and denom != "SBD":
+            self.msg.error_message("Invalid denomination to boost post")
             return False
         if amount < 0.01:
+            self.msg.error_message("Invalid amount to boost post")
             return False 
         # If the table doesn't exist create it
         self.db.initialize_bot_posts()
