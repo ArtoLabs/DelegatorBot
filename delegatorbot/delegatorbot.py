@@ -208,6 +208,10 @@ class DelegatorBot():
             + str(self.cfg.minimum_delegation) + ' SP or more @' 
             + self.cfg.mainaccount 
             + ' will start following you within 45 minutes and upvoting all of your posts too!')
+        # Create the permlink from the title
+        permlink = re.sub(r' ', '-', title)
+        permlink = re.sub(r'[^A-Za-z0-9\-]', '', permlink)
+        permlink = permlink.lower()
         # Add a list of all posts that received an upvote
         up_list = self.daily_report_upvote_list()
         if up_list is not False and up_list is not None:
