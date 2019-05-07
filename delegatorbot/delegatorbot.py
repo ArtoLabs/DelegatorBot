@@ -55,6 +55,7 @@ class DelegatorBot():
                                 keys=self.cfg.keys, 
                                 screenmode=mode)
         self.voteweight = 0
+        self.bidbot = None
 
     def get_replies_to_stop(self):
         ''' To have the delegation bot stop following
@@ -583,12 +584,12 @@ class DelegatorBot():
             # boost
             if self.debug is False:
                 self.steem.transfer_funds(
-                                bidbot, 
+                                self.bidbot, 
                                 amount, 
                                 denom, 
                                 boostlink)
             self.msg.message("Sent "+str(amount)+" "+denom+" to " 
-                            + bidbot)
+                            + self.bidbot)
             return True
         else:
             return False
@@ -601,11 +602,12 @@ class DelegatorBot():
         # If the table doesn't exist create it
         self.db.initialize_bot_posts()
         # Check the bot's balances
-        bal = self.steem.check_balances()
+        bal = self.steem.check_balances(self.cfg.mainaccount)
         # Check the reward pool
         #self.steem.reward_pool_balances()
         if (denom == "SBD"):
             print ("Current SBD balance: " + str(bal[0]))
+            self.bidbot = self.cfg.sbd_bidbot
             if float(bal[0]) > float(self.cfg.minimum_balance):
                 return True
             else:
@@ -615,6 +617,8 @@ class DelegatorBot():
                                     self.cfg.minimum_balance))
                 return False
         elif (denom == "STEEM"):
+            print ("Current STEEM balance: " + str(bal[0]))
+            self.bidbot = self.cfg.steem_bidbot
             if bal[1] > self.cfg.minimum_balance:
                 return True
             else:
@@ -635,7 +639,7 @@ class DelegatorBot():
     def balance(self):
         ''' Prints the current balance
         '''
-        bal = self.steem.check_balances()
+        bal = self.steem.check_balances(self.cfg.mainaccount)
         self.msg.message('''
     __{}__
     {} SBD
