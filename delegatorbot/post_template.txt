@@ -1,12 +1,18 @@
 <center>
-{}
+<img src="{}">
 </center>
 
 <br>
 
 ___
 
-### [Learn how @{} will upvote each and every one of *your* posts]({})
+# Learn how to get @{} to upvote all your posts
+___
+
+<a href="{}">
+<img src="{}"></a>
+
+### [Learn how I will upvote each and every one of *your* posts]({})
 ___
 
 ### Delegating {} SP is the fastest method
@@ -25,8 +31,7 @@ I will upvote every single art and music related post... within limits. I only h
 #### {}
 
 <center>
-{} is run by {}
-
+### @{} is run by @{}
 </center>
 <br><br>
 ___
@@ -34,6 +39,7 @@ ___
 <div class="pull-left"><img src="{}" /></div>
 <h1>Contact Me</h1>
 <h3>Find me on <a href="{}">Discord</a>.</h3>
+<h3>My website <a href="{}">{}</a>.</h3>
 
 ___
 

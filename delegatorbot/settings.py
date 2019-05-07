@@ -119,6 +119,12 @@ class Config:
         # A url to discord channel
         self.discord_invite_url = "https://discord.gg/your-discord-code"
 
+        # A url to owners (personal) website
+        self.website_url = "https://your.website.com"
+
+        # The name of the owners (personal) website
+        self.website_name = "Website.com"
+
         # The posting key, the active key
         self.keys = ['posting-key',
             'active-key']

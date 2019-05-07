@@ -194,8 +194,8 @@ class DelegatorBot():
                                                     voteweight=100,
                                                     votepoweroverride=100)
         # Add the vote value to the report
-        body += ("\n\n___\n<br>\n#### My current upvote value at 100% is: $" 
-                + str(my_vote_value) + "\n___\n<br>\n")
+        body += ("\n\n___\n### My current upvote value at 100% is: $" 
+                + str(my_vote_value) + "\n___\n\n")
         # Add The list of delegators
         del_list = self.daily_report_delegators()
         if del_list is not False and del_list is not None:
@@ -272,7 +272,7 @@ class DelegatorBot():
                 and self.db.dbresults is not False 
                 and numofdelegators > 0):
             # Add the delegator count to the report
-            delegator_list = ("\n\n### @" + self.cfg.mainaccount + " has " 
+            delegator_list = ("\n\n## @" + self.cfg.mainaccount + " has " 
                     + str(numofdelegators)
                     + " delegators. They are:\n\n")
             # Get the blockchain global variables
@@ -280,7 +280,7 @@ class DelegatorBot():
             # Iterate through all the delegators and display how much they've delegated
             for d in self.db.dbresults:
                 sp = int(self.steem.util.vests_to_sp(float(d[2])))
-                # Those who delegate more have their names made bigger
+                # Those who delegate more will have their names made bigger
                 if sp > 1000:
                     title_size = "##"
                 elif sp > 500:
@@ -319,8 +319,10 @@ class DelegatorBot():
                 else:
                     f.close()
                     # Convert, format and return
-                    return ((self.make_newlines(footer)).format(self.cfg.reply_image,
+                    return ((self.make_newlines(footer)).format(self.cfg.footer_top_pic_url,
                                             self.cfg.mainaccount,
+                                            self.cfg.footer_info_url,
+                                            self.cfg.reply_image,
                                             self.cfg.footer_info_url,
                                             self.cfg.minimum_delegation,
                                             self.cfg.delegationlink,
@@ -329,7 +331,9 @@ class DelegatorBot():
                                             self.cfg.mainaccount,
                                             self.cfg.owner,
                                             self.cfg.footer_bottom_pic_url,
-                                            self.cfg.discord_invite_url))
+                                            self.cfg.discord_invite_url,
+                                            self.cfg.website_url,
+                                            self.cfg.website_name))
         else:
             self.msg.error_message("\nCould not find post_template.txt directory.\n")
             return False
