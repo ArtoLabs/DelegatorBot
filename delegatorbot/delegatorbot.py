@@ -319,9 +319,10 @@ class DelegatorBot():
                 else:
                     f.close()
                     # Convert, format and return
-                    return ((self.make_newlines(footer)).format(self.cfg.footer_top_pic_url,
+                    return ((self.make_newlines(footer)).format(self.cfg.reply_image,
                                             self.cfg.mainaccount,
                                             self.cfg.footer_info_url,
+                                            self.cfg.minimum_delegation,
                                             self.cfg.delegationlink,
                                             self.cfg.footer_delegate_button_url,
                                             self.cfg.allowed_tags,
