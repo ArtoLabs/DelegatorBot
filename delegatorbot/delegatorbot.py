@@ -398,16 +398,16 @@ class DelegatorBot():
         # Is there a post?
         if identifier is False or identifier is None:
             return False
+        # Are they already in the database?
+        if self.db.find_bot_mem(identifier) is not False:
+            self.msg.message("Already voted for " + identifier)
+            return False
         # Do they have the right tags? blognumber is assigned
         # During call to get recent_post
         if self.verify_tags(self.steem.blognumber):
             # Use the algorithm to adjust vote weight, assign it to 
             # class variable so it can be accessed by run_bot_reply 
             self.voteweight = self.adjust_vote_weight(followed)
-            # Are they already in the database?
-            if self.db.find_bot_mem(identifier) is not False:
-                self.msg.message("Already voted for " + identifier)
-                return False
             if self.debug:
                 print("would've voted: " + identifier)
                 v = True
@@ -437,13 +437,6 @@ class DelegatorBot():
         '''
         if identifier is None or followed is None:
             return False
-        if self.debug:
-            result = True
-        else:
-            result = self.steem.resteem(identifier, followed)
-        if result is False:
-            self.msg.error_message("\nDid not resteem: "+identifier+"\n")
-            return False
         # The directory we're in
         dir_path = os.path.dirname(os.path.realpath(__file__))
         # Does the file exist?
@@ -465,7 +458,7 @@ class DelegatorBot():
                     msg = newtext.format(followed, v,
                                         self.cfg.mainaccount,
                                         self.cfg.footer_info_url,
-                                        self.cfg.footer_top_pic_url,
+                                        self.cfg.reply_image,
                                         self.cfg.footer_info_url)
                     if self.debug:
                         print(identifier) 
