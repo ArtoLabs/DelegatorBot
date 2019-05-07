@@ -101,6 +101,9 @@ class Config:
         # When the bot's vote power goes lower than this all upvotes are only 3%
         self.vote_power_threshold = 70
 
+        # A url to an image that is displayed on replies
+        self.reply_image = "https://steemitimages.com/something"
+
         # The top image displayed on the daily report and the reply message
         self.footer_top_pic_url = "https://steemitimages.com/something"
 
@@ -120,7 +123,10 @@ class Config:
         self.keys = ['posting-key',
             'active-key']
 
-        # Bot votes only if these tags are used
+        # The 5 tags used when posting the daily report
+        self.post_tags = ["art","news","delegation","bot","upvote"]
+
+        # Bot votes only if these tags are used by delegators
         self.allowed_tags = ["art", "music", "fashion"]
 
 
