@@ -230,7 +230,7 @@ class DelegatorBot():
                                 self.cfg.mainaccount, 
                                 permlink)
                 # Add it to the database
-                self.db.add_bot_post(tags[0], identifier)
+                self.db.add_bot_post(self.cfg.post_tags[0], identifier)
                 self.msg.message("Created report " 
                                 + identifier)
                 return identifier
