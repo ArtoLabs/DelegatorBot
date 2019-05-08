@@ -2,6 +2,10 @@
 
 DelegatorBot is a simple, yet powerful command line bot that uses delegations to determine who it upvotes, rather than bids. The concept is simple: those who delegate get an endless supply of upvotes (with limitations, of course) until they decide to undelegate (delegate zero). The bot can be configured to accept a certain amount of Steem Power as a delegation which will prompt it to follow that account. The bot can then be run to upvote, resteem and reply all of those it follows. DelegatorBot can also generate a daily report which details all of those who have delegated, how much they've delegated, as well as all of those it has upvoted, and the percentage of upvote they received.
 
+### Installation
+
+Please see [the installation instructions](https://github.com/ArtoLabs/DelegatorBot/blob/master/INSTALLATION.md)
+
 ### Bot Algorithm
 
 Obviously, as more people delegate to the bot the demand on vote power will increase. To compensate for the ever increasing number of upvotes the bot must make a failry simple algorithm is used. At the time of each vote, the bot looks at it's history of voting in the last three days and adds up all of the vote weights. So, for example, If the bot made 10 votes in the last three days, each at 100%, the total vote weight would be 1000%. Since it's best not to upvote more than 10 100% upvotes per day (1000%), One could say that 3000% is the maximum vote weight for three days. Knowing this, to calculate the current vote weight One can simple divide 3000 by the total vote weight actually used. For example, if the actual amount of vote weight used in the last three is 4000%, then:
