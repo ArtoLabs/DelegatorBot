@@ -177,7 +177,7 @@ class DelegatorBot():
         and instructions on how to get upvotes from the bot by delegating.
         '''
         # Create the table if it doesn't already exist
-        self.db.initialize_bot_mem()
+        self.db.initialize_bot_posts()
         # Get the date
         now = datetime.now()
         # Create the title for the report
@@ -229,6 +229,7 @@ class DelegatorBot():
                 identifier = self.steem.util.identifier(
                                 self.cfg.mainaccount, 
                                 permlink)
+                # Add it to the database
                 self.db.add_bot_post(tags[0], identifier)
                 self.msg.message("Created report " 
                                 + identifier)
