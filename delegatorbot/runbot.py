@@ -36,7 +36,8 @@ run                 Instructs the bot to traverse the list of followers and disp
 
 report              Creates a report containing a list of all the delegators and how much 
                     they've delegated, a list of all the posts that got upvotes in the 
-                    last 24 hours, and is made using pot_template.txt as the footer.
+                    last 24 hours, and is made using pot_template.txt as the footer. This report
+                    is then posted to the Bot's Steemit account.
 
 steemboost          Uses the STEEM bid bot set in the settings file [botname] to 
                     "boost" the most recent report.
