@@ -372,11 +372,11 @@ class DelegatorBot():
             following = ["artopium"]
         else:
             following = self.steem.following(self.cfg.mainaccount)
-        self.msg.message("Following: " + str(len(following)))
         # Are we following anyone?
         if (following is not None 
                 and following is not False 
                 and len(following) > 0):
+            self.msg.message("Following: " + str(len(following)))
             # Iterate through that list
             for f in following:
                 self.msg.message('\n' + f)
@@ -405,9 +405,10 @@ class DelegatorBot():
         self.db.initialize_bot_mem()
         if followed is False or followed is None:
             return False
-        identifier = self.steem.recent_post(followed, 0, 1)
+        identifier = self.steem.recent_post(followed, self.cfg.post_max_days_old, 1)
         # Is there a post?
         if identifier is False or identifier is None:
+            self.msg.message("Identifier is None")
             return False
         # Are they already in the database?
         if self.db.find_bot_mem(identifier) is not False:
@@ -522,7 +523,7 @@ class DelegatorBot():
             # Caps the vote weight
             if adj > self.cfg.vote_weight_max:
                 adj = self.cfg.vote_weight_max
-                print ("Adjusted to "+self.cfg.vote_weight_max)
+                print ("Adjusted to "+str(self.cfg.vote_weight_max))
             print ("Minutes since last upvote: " + str(minutes_since_last_vote))
             if sec_since_last_vote is not False and int(sec_since_last_vote) < 86400:
                 # if we voted them in the last 24 hours we scale the vote
