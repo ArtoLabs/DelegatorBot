@@ -141,5 +141,8 @@ class Config:
         # Bot votes only if these tags are used by delegators
         self.allowed_tags = ["art", "music", "fashion"]
 
+        # List of VIP accounts that if following always get 100% upvote
+        self.vip_accounts = [None]
+
 
 # EOF

@@ -493,6 +493,10 @@ class DelegatorBot():
             return 0
         if account == self.cfg.owner:
             return 100
+        if len(self.cfg.vip_accounts) > 0:
+            for vip in self.cfg.vip_accounts:
+                if account == vip:
+                    return 100
         bal = self.steem.check_balances()
         votepower = round((self.steem.votepower 
                         + self.steem.util.calc_regenerated(
