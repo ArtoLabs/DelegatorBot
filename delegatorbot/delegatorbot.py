@@ -124,7 +124,8 @@ class DelegatorBot():
                 vests = float(
                     i[1]['op'][1]['vesting_shares'].replace(
                     " VESTS", ""))
-                delegators[d] = vests
+                if d != self.cfg.mainaccount:
+                    delegators[d] = vests
         # get all known delegators from the database
         self.db.get_delegators()
         # iterate through new delegators
