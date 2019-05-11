@@ -506,17 +506,19 @@ class DelegatorBot():
                 total_vote_weight_used += self.db.dbresults[i][3]
             # then we adjust based on the total weight used in the last 3 days
             # 800 is 80% of 1000, which is 10 votes at 100% per day (10 x 100)
-            print (str(numofposts) + " previous posts in the last 3 days with " + str(total_vote_weight_used) + " total vote weight.")
-            # although 3 days of vote power would be 3000, we use half that amount
-            # to account for new users and surges in use. This helps to guarantee vote
-            # power doesn't get drained too much
-            adj = (1500 / total_vote_weight_used * 100)
+            print (str(numofposts) + " previous posts in the last 3 days with " 
+                + str(total_vote_weight_used) + " total vote weight.")
+            # 3 days of vote power would is 3000
+            # to account for new users and surges in use the 3000 is
+            # is multiplied by a user defined number
+            adj = ((3000 * self.cfg.algorithm_scale) / total_vote_weight_used * 100)
             sec_since_last_vote = self.db.already_voted_today(account)
             minutes_since_last_vote = sec_since_last_vote / 60
             print ("Base percentage: " + str(adj) + "%")
-            if adj > 60:
-                adj = 60
-                print ("Adjusted to 60.")
+            # Caps the vote weight
+            if adj > self.cfg.vote_weight_max:
+                adj = self.cfg.vote_weight_max
+                print ("Adjusted to "+self.cfg.vote_weight_max)
             print ("Minutes since last upvote: " + str(minutes_since_last_vote))
             if sec_since_last_vote is not False and int(sec_since_last_vote) < 86400:
                 # if we voted them in the last 24 hours we scale the vote

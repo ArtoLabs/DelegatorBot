@@ -101,6 +101,12 @@ class Config:
         # When the bot's vote power goes lower than this all upvotes are only 3%
         self.vote_power_threshold = 70
 
+        # A decimal number between 0 and 1 that scales the upvote weight
+        self.algorithm_scale = 1
+
+        # Sets the maximum vote weight allowed if not the owner or VIP. Must be a number between 1 and 100
+        self.vote_weight_max = 100
+
         # A url to an image that is displayed on replies
         self.reply_image = "https://steemitimages.com/something"
 
