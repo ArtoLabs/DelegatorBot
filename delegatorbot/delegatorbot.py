@@ -527,26 +527,26 @@ class DelegatorBot():
             if len(self.cfg.nvip_accounts) > 0:
                 for nvip in self.cfg.nvip_accounts:
                     if account == nvip:
-                        adj = self.nvip_vote_weight
+                        adj = self.cfg.nvip_vote_weight
                         print ("NVIP account. Adjusted weight to: " + str(adj) + "%")
             # Check to see if the account is VIP. If so let's give them the VIP amount
             if len(self.cfg.vip_accounts) > 0:
                 for vip in self.cfg.vip_accounts:
                     if account == vip:
-                        adj = self.vip_vote_weight
+                        adj = self.cfg.vip_vote_weight
                         print ("VIP account. Adjusted weight to: " + str(adj) + "%")
             if sec_since_last_vote is not False and int(sec_since_last_vote) < 86400:
                 # if we voted them in the last 24 hours we scale the vote
                 # based on how long ago the last vote was. 
                 # If it was less that 3 hours ago the weight is 3%
-                if int(sec_since_last_vote) < self.reduced_vote_wait_time * 60 * 60:
-                    adj = self.reduced_vote_weight
+                if int(sec_since_last_vote) < self.cfg.reduced_vote_wait_time * 60 * 60:
+                    adj = self.cfg.reduced_vote_weight
                 else:
                     adj *= sec_since_last_vote / 86400
                 print(account + " already got a vote in the last 24 hours. Adjusting vote further: " + str(adj) + "%")
             else:
-                if adj < self.vote_weight_min:
-                    adj = self.vote_weight_min
+                if adj < self.cfg.vote_weight_min:
+                    adj = self.cfg.vote_weight_min
 
             return adj
         else:
