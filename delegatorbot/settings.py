@@ -101,11 +101,35 @@ class Config:
         # When the bot's vote power goes lower than this all upvotes are only 3%
         self.vote_power_threshold = 70
 
+        # The vote weight percentage (1 to 100) the bot will give every post if the vote power threshold is crossed
+        self.below_threshold_vote_weight = 10
+
         # A decimal number between 0 and 1 that scales the upvote weight
         self.algorithm_scale = 1
 
         # Sets the maximum vote weight allowed if not the owner or VIP. Must be a number between 1 and 100
         self.vote_weight_max = 100
+
+        # Sets the minimum vote weight allowed if not an NVIP. Must be a number between 1 and 100
+        self.vote_weight_min = 3
+
+        # List of VIP accounts that if following always get a higher upvote
+        self.vip_accounts = [None]
+
+        # The percentage (1 to 100) to use if an account is in the VIP list
+        self.vip_vote_weight = 100
+
+        # List of NVIP accounts that if following always get a much lower upvote
+        self.nvip_accounts = [None]
+
+        # The percentage (1 to 100) to use if an account is in the NVIP list
+        self.nvip_vote_weight = 3
+
+        # The number of hours after a delegator makes a post during which they can only receive the reduced vote weight
+        self.reduced_vote_wait_time = 3
+
+        # The reduced vote weight percentage (1 to 100) as given if a post is made immediately after another post
+        self.reduced_vote_weight = 3
 
         # A url to an image that is displayed on replies
         self.reply_image = "https://steemitimages.com/something"
@@ -141,8 +165,7 @@ class Config:
         # Bot votes only if these tags are used by delegators
         self.allowed_tags = ["art", "music", "fashion"]
 
-        # List of VIP accounts that if following always get 100% upvote
-        self.vip_accounts = [None]
+
 
 
 # EOF
