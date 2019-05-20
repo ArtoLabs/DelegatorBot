@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 setup(
     python_requires='>=3.0',
     name='DelegatorBot',
-    version='1.1.4',
+    version='1.1.5',
     packages=['delegatorbot'],
     include_package_data=True,
     license='MIT',
