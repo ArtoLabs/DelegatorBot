@@ -58,40 +58,49 @@ stoppers            Searches the bot's history for relpies to posts that contain
                     word "STOP" in all capital letters. If so, the bot unfollows.
 ''')
     else:
+
         command = str(sys.argv[1])
-        if len(sys.argv) == 3:
-            selectedbot = str(sys.argv[2])
+
+        # If no bot name was given use the default settings
+        if len(sys.argv) == 2:
+            commander("settings")
+        # Iterate through a list of bot names and execute the same command for each
         else:
-            selectedbot = "settings"
-        # import the settings based on which bot we're using
-        b = DelegatorBot(botname=selectedbot)
+            for i in range(2, len(sys.argv)):
+                commander(str(sys.argv[i]))
 
-        # The various commands
-        if command == "run":
-            b.run_bot()
 
-        elif command == "report":
-            b.daily_report()
 
-        elif command == "steemboost":
-            b.boost_post(b.cfg.steem_days_old, "STEEM", b.cfg.steem_amt_to_bid)
+def commander(selectedbot):
+    # import the settings based on which bot we're using
+    b = DelegatorBot(botname=selectedbot)
 
-        elif command == "sbdboost":
-            b.boost_post(b.cfg.sbd_days_old, "SBD", b.cfg.sbd_amt_to_bid)
+    # The various commands
+    if command == "run":
+        b.run_bot()
 
-        elif command == "claim":
-            b.claim()
+    elif command == "report":
+        b.daily_report()
 
-        elif command == "balance":
-            b.balance()
+    elif command == "steemboost":
+        b.boost_post(b.cfg.steem_days_old, "STEEM", b.cfg.steem_amt_to_bid)
 
-        elif command == "delegators":
-            b.process_delegators()
+    elif command == "sbdboost":
+        b.boost_post(b.cfg.sbd_days_old, "SBD", b.cfg.sbd_amt_to_bid)
 
-        elif command == "stoppers":
-            b.get_replies_to_stop()
-        else:
-            print ("Invalid command.")
+    elif command == "claim":
+        b.claim()
+
+    elif command == "balance":
+        b.balance()
+
+    elif command == "delegators":
+        b.process_delegators()
+
+    elif command == "stoppers":
+        b.get_replies_to_stop()
+    else:
+        print ("Invalid command.")
 
 
 # EOF
