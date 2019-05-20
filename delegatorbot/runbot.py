@@ -63,15 +63,15 @@ stoppers            Searches the bot's history for relpies to posts that contain
 
         # If no bot name was given use the default settings
         if len(sys.argv) == 2:
-            commander("settings")
+            commander("settings", command)
         # Iterate through a list of bot names and execute the same command for each
         else:
             for i in range(2, len(sys.argv)):
-                commander(str(sys.argv[i]))
+                commander(str(sys.argv[i]), command)
 
 
 
-def commander(selectedbot):
+def commander(selectedbot, command):
     # import the settings based on which bot we're using
     b = DelegatorBot(botname=selectedbot)
 
