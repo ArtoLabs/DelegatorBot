@@ -472,7 +472,8 @@ class DelegatorBot():
                                         self.cfg.mainaccount,
                                         self.cfg.footer_info_url,
                                         self.cfg.reply_image,
-                                        self.cfg.footer_info_url)
+                                        self.cfg.footer_info_url,
+                                        self.cfg.alert_message)
                     if self.debug:
                         print(identifier) 
                         print(msg)

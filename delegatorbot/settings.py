@@ -30,6 +30,9 @@
 class Config:
 
     def __init__(self):
+        # An alert message placed onto every reply
+        self.alert_message = ""
+
         # The minimum balance in either STEEM or SBD that is 
         # needed for the bot to run the 'boost' feature
         self.minimum_balance = 1
