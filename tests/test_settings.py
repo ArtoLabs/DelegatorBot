@@ -6,6 +6,7 @@ from delegatorbot import settings
 class TestConfig(unittest.TestCase):
 
     def test_settings(self):
+        self.assertIsInstance(self.cfg.alert_message, str)
         self.cfg = settings.Config()
         self.assertGreater(self.cfg.minimum_balance, 0.01)
         self.assertGreater(self.cfg.max_boost_count,  0)
@@ -32,6 +33,22 @@ class TestConfig(unittest.TestCase):
         self.assertGreater(self.cfg.sbd_amt_to_bid, 0)
         self.assertGreater(self.cfg.minimum_delegation, 0)
         self.assertGreater(self.cfg.vote_power_threshold, 0)
+        self.assertGreater(self.cfg.below_threshold_vote_weight, 0)
+        self.assertGreater(self.cfg.algorithm_scale, 0)
+        self.assertLessEqual(self.cfg.algorithm_scale, 1)
+        self.assertGreater(self.cfg.vote_weight_max, 0)
+        self.assertLessEqual(self.cfg.vote_weight_max, 100)
+        self.assertGreater(self.cfg.vote_weight_min, 0)
+        self.assertLessEqual(self.cfg.vote_weight_min, 100)
+        self.assertGreater(self.cfg.vip_vote_weight, 0)
+        self.assertLessEqual(self.cfg.vip_vote_weight, 100)
+        self.assertGreater(self.cfg.nvip_vote_weight, 0)
+        self.assertLessEqual(self.cfg.nvip_vote_weight, 100)
+        self.assertGreaterEqual(self.cfg.reduced_vote_wait_time, 0)
+        self.assertGreater(self.cfg.reduced_vote_weight, 0)
+        self.assertLessEqual(self.cfg.reduced_vote_weight, 100)
+        self.assertIsInstance(self.cfg.vip_accounts, list)
+        self.assertIsInstance(self.cfg.nvip_accounts, list)
         self.assertIsNotNone(self.cfg.footer_top_pic_url)
         self.assertIsNotNone(self.cfg.footer_info_url)
         self.assertIsNotNone(self.cfg.footer_delegate_button_url)
@@ -41,7 +58,10 @@ class TestConfig(unittest.TestCase):
         self.assertIsNotNone(self.cfg.keys)
         self.assertIsInstance(self.cfg.allowed_tags, list)
         self.assertIsNotNone(self.cfg.allowed_tags)
-
+        self.assertIsNotNone(self.cfg.website_url)
+        self.assertIsNotNone(self.cfg.website_name)
+        self.assertIsInstance(self.cfg.post_tags, list)
+        self.assertIsInstance(self.cfg.allowed_tags, list)
 
 if __name__ == '__main__':
     unittest.main()
