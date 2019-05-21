@@ -60,7 +60,7 @@ class Config:
         self.delegationlink = "https://steemconnect.com/"
 
         # Maximum number of days before a post is too old to get an upvote
-        self.post_max_days_old = 1
+        self.post_max_days_old = 0
 
         # The MySQL database user name (If not root should be granted all normal privileges)
         self.dbusername = "database-user-name"
