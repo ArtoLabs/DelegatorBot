@@ -450,6 +450,9 @@ class DelegatorBot():
         '''
         if identifier is None or followed is None:
             return False
+
+
+
         # The directory we're in
         dir_path = os.path.dirname(os.path.realpath(__file__))
         # Does the file exist?
@@ -464,6 +467,7 @@ class DelegatorBot():
                     self.msg.error_message("\nCould not open reply_template.txt!\n")
                     return False
                 else:
+                    dailyreport = self.db.get_recent_post()
                     bfile.close()
                     v = int(self.voteweight)
                     # format the tempalate
@@ -473,7 +477,9 @@ class DelegatorBot():
                                         self.cfg.footer_info_url,
                                         self.cfg.reply_image,
                                         self.cfg.footer_info_url,
-                                        self.cfg.alert_message)
+                                        dailyreport,
+                                        self.cfg.alert_message
+                                        )
                     if self.debug:
                         print(identifier) 
                         print(msg)
